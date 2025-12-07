@@ -3,9 +3,9 @@ import ChatMessage from "@/components/ChatMessage";
 import ChatInput from "@/components/ChatInput";
 import { streamChat } from "@/lib/chatApi";
 import { useToast } from "@/hooks/use-toast";
-import { Sparkles } from "lucide-react";
+// import { Sparkles } from "lucide-react";
 import stars from '../../public/stars.svg'
-import sparkles from '../../public/sparkles.svg'
+// import sparkles from '../../public/sparkles.svg'
 
 
 type Message = { role: "user" | "assistant"; content: string };
