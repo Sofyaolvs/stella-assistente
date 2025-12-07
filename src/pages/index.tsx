@@ -14,20 +14,35 @@ const Index = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLElement>(null);
+  const [shouldAutoScroll, setShouldAutoScroll] = useState(true);
   const { toast } = useToast();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // Detecta se o usuário está perto do final da página
+  const handleScroll = () => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const { scrollTop, scrollHeight, clientHeight } = container;
+    const isNearBottom = scrollHeight - scrollTop - clientHeight < 100;
+    setShouldAutoScroll(isNearBottom);
+  };
+
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+    if (shouldAutoScroll) {
+      scrollToBottom();
+    }
+  }, [messages, shouldAutoScroll]);
 
   const handleSend = async (input: string) => {
     const userMsg: Message = { role: "user", content: input };
     setMessages((prev) => [...prev, userMsg]);
     setIsLoading(true);
+    setShouldAutoScroll(true); // Reativa auto-scroll ao enviar nova mensagem
 
     let assistantContent = "";
     const upsertAssistant = (nextChunk: string) => {
@@ -86,7 +101,11 @@ const Index = () => {
       </header>
 
       {/* mensagens prontas*/}
-      <main className="container mx-auto flex-1 overflow-y-auto px-4 py-6">
+      <main
+        ref={scrollContainerRef}
+        onScroll={handleScroll}
+        className="container mx-auto flex-1 overflow-y-auto px-4 py-6"
+      >
         <div className="mx-auto max-w-3xl space-y-4">
           {messages.length === 0 && (
             <div className="flex flex-col items-center justify-center gap-4 py-12 text-center">
