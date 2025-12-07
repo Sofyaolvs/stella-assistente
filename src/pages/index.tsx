@@ -15,34 +15,45 @@ const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLElement>(null);
-  const [shouldAutoScroll, setShouldAutoScroll] = useState(true);
+  const isAutoScrollingRef = useRef(false);
+  const shouldAutoScrollRef = useRef(true);
   const { toast } = useToast();
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    const container = scrollContainerRef.current;
+    if (!shouldAutoScrollRef.current || !container) return;
+
+    isAutoScrollingRef.current = true;
+    container.scrollTop = container.scrollHeight;
+
+    setTimeout(() => {
+      isAutoScrollingRef.current = false;
+    }, 100);
   };
 
-  // Detecta se o usuário está perto do final da página
+  // Detecta se o usuário rolou manualmente
   const handleScroll = () => {
+    if (isAutoScrollingRef.current) return;
+
     const container = scrollContainerRef.current;
     if (!container) return;
 
     const { scrollTop, scrollHeight, clientHeight } = container;
-    const isNearBottom = scrollHeight - scrollTop - clientHeight < 100;
-    setShouldAutoScroll(isNearBottom);
+    const distanceFromBottom = scrollHeight - scrollTop - clientHeight;
+
+    // Se o usuário está a mais de 100px do fundo, desativa auto-scroll
+    shouldAutoScrollRef.current = distanceFromBottom < 100;
   };
 
   useEffect(() => {
-    if (shouldAutoScroll) {
-      scrollToBottom();
-    }
-  }, [messages, shouldAutoScroll]);
+    scrollToBottom();
+  }, [messages]);
 
   const handleSend = async (input: string) => {
     const userMsg: Message = { role: "user", content: input };
     setMessages((prev) => [...prev, userMsg]);
     setIsLoading(true);
-    setShouldAutoScroll(true); // Reativa auto-scroll ao enviar nova mensagem
+    shouldAutoScrollRef.current = true; // Reativa auto-scroll ao enviar nova mensagem
 
     let assistantContent = "";
     const upsertAssistant = (nextChunk: string) => {

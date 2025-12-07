@@ -1,73 +1,52 @@
-# React + TypeScript + Vite
+# Stella - Assistente Virtual
+Chatbot inteligente focado em autocuidado, moda, tech e startups, com interface moderna e streaming de respostas em tempo real.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Stack Tecnológica
 
-Currently, two official plugins are available:
+### Frontend
+- React 19 - Framework UI
+- TypeScript - Tipagem estática
+- Vite - Build tool e dev server
+- TailwindCSS - Estilização
+- Radix UI - Componentes acessíveis
+- React Router - Navegação
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### IA & Backend
+- Google Gemini 2.5 Flash - Modelo de linguagem
+- @google/generative-ai - SDK oficial do Gemini
+- Streaming SSE - Respostas em tempo real
 
-## React Compiler
+### Outras ferramentas
+- Lucide React - Ícones
+- Sonner - Notificações toast
+- TanStack Query - Gerenciamento de estado
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Funcionalidades
 
-## Expanding the ESLint configuration
+- Chat com streaming de respostas em tempo real
+- Interface responsiva e moderna
+- Scroll inteligente (não força ir para baixo durante geração)
+- Mensagens pré-definidas para início rápido
+- Feedback visual durante carregamento
+- Sistema de notificações para erros
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Configuração
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 1. Instalar dependências
+npm install
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 2. Configurar variáveis de ambiente
+Crie um arquivo `.env` na raiz:
+VITE_API_KEY=sua_chave_api_gemini_aqui
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 4. Rodar o projeto
+npm run dev
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Limites da API Gratuita
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+**Gemini (Free):**
+- 20 requisições por dia
+- Reseta a cada 24h
+
+
