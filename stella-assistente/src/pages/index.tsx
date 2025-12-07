@@ -4,6 +4,9 @@ import ChatInput from "@/components/ChatInput";
 import { streamChat } from "@/lib/chatApi";
 import { useToast } from "@/hooks/use-toast";
 import { Sparkles } from "lucide-react";
+import stars from '../../public/stars.svg'
+import sparkles from '../../public/sparkles.svg'
+
 
 type Message = { role: "user" | "assistant"; content: string };
 
@@ -71,35 +74,35 @@ const Index = () => {
       <header className="border-b border-border bg-card/50 backdrop-blur-sm">
         <div className="container mx-auto flex items-center gap-3 px-4 py-4">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-primary shadow-soft">
-            <Sparkles className="h-5 w-5 text-primary" />
+            <img src={stars} className="h-35 w-30 text-primary" />
           </div>
           <div>
             <h1 className="text-xl font-semibold tracking-tight">Stella</h1>
             <p className="text-xs text-muted-foreground">
-              Sua assistente de moda, estética & tech
+              Sua assistente de autocuidado & tech
             </p>
           </div>
         </div>
       </header>
 
-      {/* Messages Area */}
+      {/* mensagens prontas*/}
       <main className="container mx-auto flex-1 overflow-y-auto px-4 py-6">
         <div className="mx-auto max-w-3xl space-y-4">
           {messages.length === 0 && (
             <div className="flex flex-col items-center justify-center gap-4 py-12 text-center">
               <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-primary shadow-elegant">
-                <Sparkles className="h-10 w-10 text-primary" />
+                <img src={stars} className="h-16 w-16 text-primary" />
               </div>
               <div className="space-y-2">
-                <h2 className="text-2xl font-semibold">Olá! Eu sou a Stella ✨</h2>
+                <h2 className="text-2xl font-semibold">Olá! Eu sou a Stella img</h2>
                 <p className="text-muted-foreground">
-                  Estou aqui para conversar sobre moda, skincare, maquiagem, programação e
+                  Estou aqui para conversar sobre tendências, autocuidado, programação e
                   startups!
                 </p>
               </div>
               <div className="mt-4 grid gap-2 sm:grid-cols-2">
                 <button
-                  onClick={() => handleSend("Quais são as tendências de moda para 2024?")}
+                  onClick={() => handleSend("Quais são as tendências para o ano?")}
                   className="rounded-xl border border-border bg-card px-4 py-3 text-left text-sm shadow-soft transition-all duration-300 hover:shadow-md hover:scale-[1.02]"
                 >
                   <span className="font-medium">Tendências de Moda</span>
@@ -117,7 +120,7 @@ const Index = () => {
                   </p>
                 </button>
                 <button
-                  onClick={() => handleSend("Quais linguagens de programação aprender em 2024?")}
+                  onClick={() => handleSend("Quais frameworks estão em alta?")}
                   className="rounded-xl border border-border bg-card px-4 py-3 text-left text-sm shadow-soft transition-all duration-300 hover:shadow-md hover:scale-[1.02]"
                 >
                   <span className="font-medium">Tech & Programação</span>
@@ -164,7 +167,7 @@ const Index = () => {
           <div className="mx-auto max-w-3xl">
             <ChatInput onSend={handleSend} disabled={isLoading} />
             <p className="mt-2 text-center text-xs text-muted-foreground">
-              Stella pode cometer erros. Considere verificar informações importantes.
+              Stella pode cometer erros. Verifique informações importantes.✨
             </p>
           </div>
         </div>
