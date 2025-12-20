@@ -124,7 +124,7 @@ const Index = () => {
                 <img src={stars} className="h-16 w-16 text-primary" />
               </div>
               <div className="space-y-2">
-                <h2 className="text-2xl font-semibold">Olá! Eu sou a Stella img</h2>
+                <h2 className="text-2xl font-semibold">Olá! Eu sou a Stella</h2>
                 <p className="text-muted-foreground">
                   Estou aqui para conversar sobre tendências, autocuidado, programação e
                   startups!
